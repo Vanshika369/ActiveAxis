@@ -3,22 +3,53 @@ const mongoose = require('mongoose');
 const communitySchema = new mongoose.Schema({
   communityName: {
     type: String,
-    required: true
+    required: true,
   },
   communityLogo: {
-    type: String, 
-    required: true
+    type: String,
+    required: true,
+  },
+  communityBanner: {
+    type: String,
+    required: true,
   },
   numberOfPeople: {
     type: Number,
-    default: 0 
+    default: 0,
   },
-  people: {
+  peopleNames: {
     type: [String],
-    default: [] 
+    default: [],
   },
+  description: {
+    type: String,
+    required: true,
+  },
+  code: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  members: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
+
+
 }, {
-  timestamps: true 
+  timestamps: true,
 });
 
 const Community = mongoose.model('Community', communitySchema);
